@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbox、定位置信度以及所有类别概率向量来将问题一次性解决。 Y">
+<meta name="description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbo">
 <meta name="keywords" content="深度学习,图像检测,yolo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习图像检测-yolo算法及使用">
 <meta property="og:url" content="http://yoursite.com/2018/02/27/imageDetection_1/index.html">
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
-<meta property="og:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbox、定位置信度以及所有类别概率向量来将问题一次性解决。 Y">
+<meta property="og:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-27T04:24:41.420Z">
+<meta property="og:updated_time" content="2018-02-27T07:27:31.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习图像检测-yolo算法及使用">
-<meta name="twitter:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbox、定位置信度以及所有类别概率向量来将问题一次性解决。 Y">
+<meta name="twitter:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbo">
 
 
 
@@ -353,11 +353,16 @@
 
       
         <blockquote>
-<p>因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中</p>
+<p>因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。</p>
 </blockquote>
 <h2 id="Yolo简介"><a href="#Yolo简介" class="headerlink" title="Yolo简介"></a>Yolo简介</h2><p>一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbox、定位置信度以及所有类别概率向量来将问题一次性解决。</p>
-<h2 id="Yolo安装"><a href="#Yolo安装" class="headerlink" title="Yolo安装"></a>Yolo安装</h2><p>Yolo基于darknet编写，而编译draknet的时候最好安装一下opencv，因为没有opencv图不会自动弹出，我最开始是利用Anaconda环境下的conda安装的，但是有问题，最后还是重新安装了下，下面记录下安装流程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># install opencv</span><br><span class="line"># 安装2.4</span><br><span class="line">brew install opencv</span><br><span class="line"># 安装opencv3</span><br><span class="line">brew install opencv3</span><br></pre></td></tr></table></figure>
+<h2 id="Yolo安装"><a href="#Yolo安装" class="headerlink" title="Yolo安装"></a>Yolo安装</h2><p>Yolo基于darknet编写，而编译draknet的时候最好安装一下opencv，因为没有opencv图不会自动弹出，我最开始是利用Anaconda环境下的conda安装的，但是有问题，最后还是重新安装了下，下面记录下安装流程。</p>
+<h3 id="Homebrew-安装"><a href="#Homebrew-安装" class="headerlink" title="Homebrew 安装"></a>Homebrew 安装</h3><p>用于在mac终端下安装软件使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”</span><br><span class="line"># 卸载</span><br><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)”</span><br><span class="line"># 测试是否成功</span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure></p>
+<p>安装好后会自动创建目录 /usr/local/Cellar 来存放利用Homebrew安装的程序，通过 brew install就可以安装软件</p>
+<h3 id="OpenCV-安装"><a href="#OpenCV-安装" class="headerlink" title="OpenCV 安装"></a>OpenCV 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 安装opencv3</span><br><span class="line">brew install opencv</span><br></pre></td></tr></table></figure>
+<p>接下来需要配置下环境变量，先进入到python 模块的目录，我利用的是Anaconda自带的python，因此路径为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/Cellar/anaconda2/lib/python2.7/site-packages/</span><br></pre></td></tr></table></figure></p>
+<p>制作软连接同时更新numpy：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/local/Cellar/opencv/3.4.0_1/lib/python2.7/site-packages/cv2.so cv2.so</span><br><span class="line">sudo ln -s /usr/local/Cellar/opencv/3.4.0_1/lib/python2.7/site-packages/cv.py cv.py</span><br><span class="line">sudo pip install numpy --upgrade --ignore-installed</span><br><span class="line"># 测试是否安装成功</span><br><span class="line">python</span><br><span class="line">import cv2</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -531,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo简介"><span class="nav-number">1.</span> <span class="nav-text">Yolo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo安装"><span class="nav-number">2.</span> <span class="nav-text">Yolo安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo简介"><span class="nav-number">1.</span> <span class="nav-text">Yolo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo安装"><span class="nav-number">2.</span> <span class="nav-text">Yolo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebrew-安装"><span class="nav-number">2.1.</span> <span class="nav-text">Homebrew 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenCV-安装"><span class="nav-number">2.2.</span> <span class="nav-text">OpenCV 安装</span></a></li></ol></li></ol></div>
             
 
           </div>
