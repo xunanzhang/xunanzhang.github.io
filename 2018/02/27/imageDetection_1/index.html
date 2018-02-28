@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-27T09:34:49.158Z">
+<meta property="og:image" content="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png">
+<meta property="og:updated_time" content="2018-02-28T02:28:43.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习图像检测-yolo算法及使用">
 <meta name="twitter:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。  Yolo简介一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbo">
+<meta name="twitter:image" content="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png">
 
 
 
@@ -365,8 +367,12 @@
 <p>如果显示类似下面的代码，则说明安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p obj</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">.....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast -lm....</span><br></pre></td></tr></table></figure></p>
 <p>如果安装了GPU CUDA加速，需要修改配置文件中的参数，由于本人mac上只利用cpu进行测试，只需要修改配置文件中OPENCV的参数0变成1，配置文件位于./darknet/Makefile中，然后在终端进行测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet imtest data/eagle.jpg</span><br></pre></td></tr></table></figure></p>
 <p>如果弹出多个老鹰的图片窗口则代表安装成功</p>
-<h2 id="Yolo使用"><a href="#Yolo使用" class="headerlink" title="Yolo使用"></a>Yolo使用</h2><p>为了有直观的感受，在标注训练自己的数据集之前，可以先利用已经学习好的模型进行测试。</p>
-
+<h2 id="已有模型使用"><a href="#已有模型使用" class="headerlink" title="已有模型使用"></a>已有模型使用</h2><p>为了有直观的感受，在标注训练自己的数据集之前，可以先利用已经学习好的模型进行检测。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://pjreddie.com/media/files/yolo.weights</span><br></pre></td></tr></table></figure></p>
+<p>下载好的模型放入到./darknet文件目录下和data文件夹平级目录，然后运行检测代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg</span><br></pre></td></tr></table></figure></p>
+<p>控制台会显示如下的输出结果，网络结构、预测使用时间、每个识别结果的置信度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">layer     filters    size              input                output</span><br><span class="line">    0 conv     32  3 x 3 / 1   416 x 416 x   3   -&gt;   416 x 416 x  32</span><br><span class="line">    1 max          2 x 2 / 2   416 x 416 x  32   -&gt;   208 x 208 x  32</span><br><span class="line">    .......</span><br><span class="line">   29 conv    425  1 x 1 / 1    13 x  13 x1024   -&gt;    13 x  13 x 425</span><br><span class="line">   30 detection</span><br><span class="line">Loading weights from yolo.weights...Done!</span><br><span class="line">data/dog.jpg: Predicted in 0.016287 seconds.</span><br><span class="line">car: 54%</span><br><span class="line">bicycle: 51%</span><br><span class="line">dog: 56%</span><br></pre></td></tr></table></figure>
+<p><img src="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png" alt="pic1"></p>
+<h2 id="训练新模型"><a href="#训练新模型" class="headerlink" title="训练新模型"></a>训练新模型</h2>
       
     </div>
     
@@ -540,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo简介"><span class="nav-number">1.</span> <span class="nav-text">Yolo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo安装"><span class="nav-number">2.</span> <span class="nav-text">Yolo安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo使用"><span class="nav-number">3.</span> <span class="nav-text">Yolo使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo简介"><span class="nav-number">1.</span> <span class="nav-text">Yolo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo安装"><span class="nav-number">2.</span> <span class="nav-text">Yolo安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已有模型使用"><span class="nav-number">3.</span> <span class="nav-text">已有模型使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练新模型"><span class="nav-number">4.</span> <span class="nav-text">训练新模型</span></a></li></ol></div>
             
 
           </div>
