@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-01T04:00:13.380Z">
+<meta property="og:updated_time" content="2018-03-01T06:11:31.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于深度学习的目标检测方法及应用">
 <meta name="twitter:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
@@ -360,6 +360,11 @@
 <p>目标检测对于人类来说并不困难，通过对图片中不同颜色模块的感知很容易定位并分类出其中目标物体，但对于计算机来说，面对的是RGB像素矩阵，很难从图像中直接得到狗和猫这样的抽象概念并定位其位置，再加上有时候多个物体和杂乱的背景混杂在一起，目标检测更加困难。但这难不倒科学家们，在传统视觉领域，目标检测就是一个非常热门的研究方向，一些特定目标的检测，比如人脸检测和行人检测已经有非常成熟的技术了。普通的目标检测也有过很多的尝试，但是效果总是差强人意。</p>
 <p>传统的目标检测一般使用滑动窗口的框架，主要包括三个步骤：<br>（1）利用不同尺寸的滑动窗口框住图中的某一部分作为候选区域；<br>（2）提取候选区域相关的视觉特征，比如人脸检测常用Harr特征，行人检测和普通目标检测常用HOG特征等；<br>（3）利用分类器进行识别，比如常用的SVM模型。</p>
 <p>传统的目标检测中，多尺度形变部件模型DPM（Deformable Part Model）[13]是出类拔萃的，连续获得VOC（Visual Object Class）2007到2009的检测冠军，2010年其作者Felzenszwalb Pedro被VOC授予”终身成就奖”。DPM把物体看成了多个组成的部件（比如人脸的鼻子、嘴巴等），用部件间的关系来描述物体，这个特性非常符合自然界很多物体的非刚体特征。DPM可以看做是HOG+SVM的扩展，很好的继承了两者的优点，在人脸检测、行人检测等任务上取得了不错的效果，但是DPM相对复杂，检测速度也较慢，从而也出现了很多改进的方法。正当大家热火朝天改进DPM性能的时候，基于深度学习的目标检测横空出世，迅速盖过了DPM的风头，很多之前研究传统目标检测算法的研究者也开始转向深度学习。</p>
+<p>基于深度学习的目标检测发展起来后，其实效果也一直难以突破。比如文献[6]中的算法在VOC 2007测试集合上的mAP只能30%多一点，文献[7]中的OverFeat在ILSVRC 2013测试集上的mAP只能达到24.3%。2013年R-CNN诞生了，VOC 2007测试集的mAP被提升至48%，2014年时通过修改网络结构又飙升到了66%，同时ILSVRC 2013测试集的mAP也被提升至31.4%。</p>
+<p>R-CNN是Region-based Convolutional Neural Networks的缩写，中文翻译是基于区域的卷积神经网络，是一种结合区域提名（Region Proposal）和卷积神经网络（CNN）的目标检测方法。Ross Girshick在2013年的开山之作《Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation》[1]奠定了这个子领域的基础，这篇论文后续版本发表在CVPR 2014[2]，期刊版本发表在PAMI 2015[3]。其实在R-CNN之前已经有很多研究者尝试用Deep Learning的方法来做目标检测了，包括OverFeat[7]，但R-CNN是第一个真正可以工业级应用的解决方案.</p>
+<p>R-CNN这个领域目前研究非常活跃，先后出现了R-CNN[1,2,3,18]、SPP-net[4,19]、Fast R-CNN[14, 20] 、Faster R-CNN[5,21]、R-FCN[16,24]、YOLO[15,22]、SSD[17,23]等研究。Ross Girshick作为这个领域的开山鼻祖总是神一样的存在，R-CNN、Fast R-CNN、Faster R-CNN、YOLO都和他有关。这些创新的工作其实很多时候是把一些传统视觉领域的方法和深度学习结合起来了，比如选择性搜索（Selective Search)和图像金字塔（Pyramid）等。</p>
+<p>深度学习相关的目标检测方法也可以大致分为两派：<br>（1）基于区域提名的，如R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN；<br>（2）端到端（End-to-End），无需区域提名的，如YOLO、SSD。</p>
+<p>目前来说，基于区域提名的方法依然占据上风，但端到端的方法速度上优势明显，后续的发展拭目以待。</p>
 
       
     </div>
