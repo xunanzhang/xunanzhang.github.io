@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-01T07:27:22.077Z">
+<meta property="og:updated_time" content="2018-03-01T07:41:33.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于深度学习的目标检测方法及应用">
 <meta name="twitter:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
@@ -364,8 +364,15 @@
 <p>R-CNN是Region-based Convolutional Neural Networks的缩写，中文翻译是基于区域的卷积神经网络，是一种结合区域提名（Region Proposal）和卷积神经网络（CNN）的目标检测方法。Ross Girshick在2013年的开山之作《Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation》奠定了这个子领域的基础，这篇论文后续版本发表在CVPR 2014，期刊版本发表在PAMI 2015。其实在R-CNN之前已经有很多研究者尝试用Deep Learning的方法来做目标检测了，包括OverFeat，但R-CNN是第一个真正可以工业级应用的解决方案.</p>
 <p>R-CNN这个领域目前研究非常活跃，先后出现了R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN、YOLO、SSD等研究。Ross Girshick作为这个领域的开山鼻祖总是神一样的存在，R-CNN、Fast R-CNN、Faster R-CNN、YOLO都和他有关。这些创新的工作其实很多时候是把一些传统视觉领域的方法和深度学习结合起来了，比如选择性搜索（Selective Search)和图像金字塔（Pyramid）等。</p>
 <p>深度学习相关的目标检测方法也可以大致分为两派：<br>（1）基于区域提名的，如R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN；<br>（2）端到端（End-to-End），无需区域提名的，如YOLO、SSD。<br>目前来说，基于区域提名的方法依然占据上风，但端到端的方法速度上优势明显，后续的发展拭目以待。</p>
-<h2 id="选择性搜索"><a href="#选择性搜索" class="headerlink" title="选择性搜索"></a>选择性搜索</h2><p>补充个概念，关于精确率(precision)和准确率(accuracy)。实际上非常简单，精确率是针对我们预测结果而言的，它表示的是预测为正的样本中有多少是真正的正样本。那么预测为正就有两种可能了，一种就是把正类预测为正类(TP)，另一种就是把负类预测为正类(FP)，也就是p=TP/(TP+FP)；</p>
-<p>而召回率是针对我们原来的样本而言的，它表示的是样本中的正例有多少被预测正确了。那也有两种可能，一种是把原来的正类预测成正类(TP)，另一种就是把原来的正类预测为负类(FN)。<br>R = \frac{TP}{TP+FN}</p>
+<h2 id="选择性搜索"><a href="#选择性搜索" class="headerlink" title="选择性搜索"></a>选择性搜索</h2><p>补充个概念，关于精确率(precision)和准确率(accuracy)。实际上非常简单，精确率是针对我们预测结果而言的，它表示的是预测为正的样本中有多少是真正的正样本。那么预测为正就有两种可能了，一种就是把正类预测为正类(TP)，另一种就是把负类预测为正类(FP)，也就是 P = TP/(TP+FP)；</p>
+<p>而召回率是针对我们原来的样本而言的，它表示的是样本中的正例有多少被预测正确了。那也有两种可能，一种是把原来的正类预测成正类(TP)，另一种就是把原来的正类预测为负类(FN)，则有 R = TP/(TP+FN)</p>
+<p>其实就是分母不同，一个分母是预测为正的样本数，另一个是原来样本中所有的正样本数。</p>
+<p>目标检测的第一步是要做区域提名（Region Proposal），也就是找出可能的感兴趣区域（Region Of Interest, ROI）。区域提名类似于光学字符识别（OCR）领域的切分，OCR切分常用过切分方法，简单说就是尽量切碎到小的连通域（比如小的笔画之类），然后再根据相邻块的一些形态学特征进行合并。但目标检测的对象相比OCR领域千差万别，而且图形不规则，大小不一，所以一定程度上可以说区域提名是比OCR切分更难的一个问题。</p>
+<p>区域提名可能的方法有：</p>
+<p>一、滑动窗口。滑动窗口本质上就是穷举法，利用不同的尺度和长宽比把所有可能的大大小小的块都穷举出来，然后送去识别，识别出来概率大的就留下来。很明显，这样的方法复杂度太高，产生了很多的冗余候选区域，在现实当中不可行。</p>
+<p>二、规则块。在穷举法的基础上进行了一些剪枝，只选用固定的大小和长宽比。这在一些特定的应用场景是很有效的，比如拍照搜题APP小猿搜题中的汉字检测，因为汉字方方正正，长宽比大多比较一致，因此用规则块做区域提名是一种比较合适的选择。但是对于普通的目标检测来说，规则块依然需要访问很多的位置，复杂度高。</p>
+<p>三、选择性搜索。从机器学习的角度来说，前面的方法召回是不错了，但是精度差强人意，所以问题的核心在于如何有效地去除冗余候选区域。其实冗余候选区域大多是发生了重叠，选择性搜索利用这一点，自底向上合并相邻的重叠区域，从而减少冗余。</p>
+<p>区域提名并不只有以上所说的三种方法，实际上这块是非常灵活的，因此变种也很多,总体上，选择性搜索是一种比较朴素的区域提名方法，被早期的基于深度学习的目标检测方法（包括Overfeat和R-CNN等）广泛利用，但被当前的新方法弃用了.</p>
 <h2 id="区域搜索"><a href="#区域搜索" class="headerlink" title="区域搜索"></a>区域搜索</h2>
       
     </div>
@@ -398,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/09/hello-world/" rel="next" title="关于三零这一年">
-                <i class="fa fa-chevron-left"></i> 关于三零这一年
+              <a href="/2018/02/25/imageClasscification/" rel="next" title="基于深度学习的图像分类">
+                <i class="fa fa-chevron-left"></i> 基于深度学习的图像分类
               </a>
             
           </div>
@@ -490,7 +497,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -512,7 +519,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
