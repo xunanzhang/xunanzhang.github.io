@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,图像检测,yolo," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。">
+<meta name="keywords" content="深度学习,图像检测,yolo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习图像检测-yolo算法及使用">
+<meta property="og:url" content="http://yoursite.com/2018/03/01/imageDetection_1/index.html">
+<meta property="og:site_name" content="JuneUncle&#39;s Blog">
+<meta property="og:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png">
+<meta property="og:updated_time" content="2018-03-01T01:50:24.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习图像检测-yolo算法及使用">
+<meta name="twitter:description" content="因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。">
+<meta name="twitter:image" content="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/01/imageDetection_1/"/>
+
+
+
+
+
+  <title>深度学习图像检测-yolo算法及使用 | JuneUncle's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JuneUncle's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/01/imageDetection_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zxn | too young, too simple, sometimes naive">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JuneUncle's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习图像检测-yolo算法及使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T00:00:00+08:00">
+                2018-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工作学习/" itemprop="url" rel="index">
+                    <span itemprop="name">工作学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="/assets/js/APlayer.min.js"> </script><blockquote>
+<p>因为最近的项目需要，感觉还是应该把图像检测识别相关的知识系统的学下，先以能应用为主，至于算法的原理能理解多少是多少吧，毕竟时间不如在学校时那么集中，这里主要介绍下如何安装和使用yolo处理图像检测的问题。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Yolo简介"><a href="#Yolo简介" class="headerlink" title="Yolo简介"></a>Yolo简介</h2><p>一种端到端训练及推断，改革区域建议框式目标检测框架，可以实时目标检测。YOLO将全图划分为SXS的格子，每个格子负责中心在该格子的目标检测，采用一次性预测所有格子所含目标的bbox、定位置信度以及所有类别概率向量来将问题一次性解决。</p>
+<h2 id="Yolo安装"><a href="#Yolo安装" class="headerlink" title="Yolo安装"></a>Yolo安装</h2><p>Yolo基于darknet编写，而编译draknet的时候最好安装一下opencv，因为没有opencv图不会自动弹出，我最开始是利用Anaconda环境下的conda安装的，但是有问题，最后还是重新安装了下，下面记录下安装流程。</p>
+<p>（一）Homebrew 安装<br>用于在mac终端下安装软件使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”</span><br><span class="line"># 卸载</span><br><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)”</span><br><span class="line"># 测试是否成功</span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure></p>
+<p>安装好后会自动创建目录/usr/local/Cellar来存放用Homebrew安装的程序，通过brew install就可以安装软件<br>（二）OpenCV 安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 安装opencv3</span><br><span class="line">brew install opencv</span><br></pre></td></tr></table></figure></p>
+<p>接下来需要配置下环境变量，先进入到python 模块的目录，我利用的是Anaconda自带的python，因此路径为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/Cellar/anaconda2/lib/python2.7/site-packages/</span><br></pre></td></tr></table></figure></p>
+<p>制作软连接同时更新numpy：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/local/Cellar/opencv/3.4.0_1/lib/python2.7/site-packages/cv2.so cv2.so</span><br><span class="line">sudo ln -s /usr/local/Cellar/opencv/3.4.0_1/lib/python2.7/site-packages/cv.py cv.py</span><br><span class="line">sudo pip install numpy --upgrade --ignore-installed</span><br><span class="line"># 测试是否安装成功</span><br><span class="line">python</span><br><span class="line">import cv2</span><br></pre></td></tr></table></figure></p>
+<p>（三）Darknet 安装<br>为了保证安装的一致性，我把下载的darknet也放到了Cellar文件夹下面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;/usr/local/Cellar/ &amp;&amp; git clone https://github.com/pjreddie/darknet.git</span><br><span class="line">cd darknet</span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p>如果显示类似下面的代码，则说明安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p obj</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast....</span><br><span class="line">.....</span><br><span class="line">gcc -I/usr/local/cuda/include/  -Wall -Wfatal-errors  -Ofast -lm....</span><br></pre></td></tr></table></figure></p>
+<p>如果安装了GPU CUDA加速，需要修改配置文件中的参数，由于本人mac上只利用cpu进行测试，只需要修改配置文件中OPENCV的参数0变成1，配置文件位于./darknet/Makefile中，然后在终端进行测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet imtest data/eagle.jpg</span><br></pre></td></tr></table></figure></p>
+<p>如果弹出多个老鹰的图片窗口则代表安装成功</p>
+<h2 id="已有数据模型使用"><a href="#已有数据模型使用" class="headerlink" title="已有数据模型使用"></a>已有数据模型使用</h2><p>为了有直观的感受，在标注训练自己的数据集之前，可以先利用已经学习好的模型进行检测。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://pjreddie.com/media/files/yolo.weights</span><br></pre></td></tr></table></figure></p>
+<p>下载好的模型放入到./darknet文件目录下和data文件夹平级目录，然后运行检测代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg</span><br></pre></td></tr></table></figure></p>
+<p>控制台会显示如下的输出结果，网络结构、预测使用时间、每个识别结果的置信度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">layer     filters    size              input                output</span><br><span class="line">    0 conv     32  3 x 3 / 1   416 x 416 x   3   -&gt;   416 x 416 x  32</span><br><span class="line">    1 max          2 x 2 / 2   416 x 416 x  32   -&gt;   208 x 208 x  32</span><br><span class="line">    .......</span><br><span class="line">   29 conv    425  1 x 1 / 1    13 x  13 x1024   -&gt;    13 x  13 x 425</span><br><span class="line">   30 detection</span><br><span class="line">Loading weights from yolo.weights...Done!</span><br><span class="line">data/dog.jpg: Predicted in 0.016287 seconds.</span><br><span class="line">car: 54%</span><br><span class="line">bicycle: 51%</span><br><span class="line">dog: 56%</span><br></pre></td></tr></table></figure>
+<p><img src="https://pjreddie.com/media/image/Screen_Shot_2016-11-17_at_11.14.54_AM.png" alt="pic1"></p>
+<h2 id="训练自己的数据"><a href="#训练自己的数据" class="headerlink" title="训练自己的数据"></a>训练自己的数据</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/图像检测/" rel="tag"># 图像检测</a>
+          
+            <a href="/tags/yolo/" rel="tag"># yolo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/深度学习目标检测/" rel="next" title="基于深度学习对目标检测">
+                <i class="fa fa-chevron-left"></i> 基于深度学习对目标检测
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zxn | too young, too simple, sometimes naive</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo简介"><span class="nav-number">1.</span> <span class="nav-text">Yolo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yolo安装"><span class="nav-number">2.</span> <span class="nav-text">Yolo安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已有数据模型使用"><span class="nav-number">3.</span> <span class="nav-text">已有数据模型使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练自己的数据"><span class="nav-number">4.</span> <span class="nav-text">训练自己的数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zxn | too young, too simple, sometimes naive</span>
+
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7a92ca14abb39f6b400b',
+          clientSecret: 'd6e96818ff93c043ce259d60ea64601199fd47fa',
+          repo: 'xunanzhang.github.io',
+          owner: 'xunanzhang',
+          admin: ['xunanzhang'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
