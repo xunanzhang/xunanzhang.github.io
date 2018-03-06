@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="深度学习在计算机视觉领域四大基本任务中的应用，包括分类、定位检测、语义分割、和实例分割。首先从图像分类开始学习，利用Caffe搭建深度学习网络，在实际数据集上进行测试。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-05T08:37:31.297Z">
+<meta property="og:updated_time" content="2018-03-06T03:57:04.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于深度学习的图像分类">
 <meta name="twitter:description" content="深度学习在计算机视觉领域四大基本任务中的应用，包括分类、定位检测、语义分割、和实例分割。首先从图像分类开始学习，利用Caffe搭建深度学习网络，在实际数据集上进行测试。">
@@ -390,8 +390,10 @@ sys.path.insert(0, caffe_root + &apos;python&apos;)
 <p>训练完成后我们会得到：<br>  cifar10_quick_iter_5000.caffemodel.h5<br>  cifar10_quick_iter_5000.solverstate.h5<br>此时，我们就训练得到了模型，用于后面的分类。</p>
 <p>下面我们使用模型来分类数据（注意examples前面两个空格）：</p>
 <pre><code>python python/classify.py --model_def examples/cifar10/cifar10_quick.prototxt --pretrained_model examples/cifar10/cifar10_quick_iter_5000.caffemodel.h5 --center_only  examples/images/cat.jpg foo
-</code></pre><p>默认的classify脚本不会直接输出结果，而是会把结果输入到foo文件里，不太直观，这里我在网上找了一个修改版，添加了一些参数，可以输出概率最高的分类。<br>替换python/classify.py，下载地址：<a href="http://download.csdn.net/detail/caisenchuan/9513196" target="_blank" rel="noopener">http://download.csdn.net/detail/caisenchuan/9513196</a><br>这个脚本添加了两个参数，可以指定labels_file，然后可以直接把分类结果输出出来：</p>
-<pre><code>python python/classify.py --print_results --model_def examples/cifar10/cifar10_quick.prototxt --pretrained_model examples/cifar10/cifar10_quick_iter_4000.caffemodel.h5 --labels_file data/cifar10/cifar10_words.txt  --center_only  examples/images/cat.jpg foo
+</code></pre><p>默认的classify脚本不会直接输出结果，而是会把结果输入到foo文件里，不太直观，这里我在网上找了一个修改版，添加了一些参数，可以输出概率最高的分类。<br>替换python/classify.py，下载地址：<a href="http://download.csdn.net/detail/caisenchuan/9513196" target="_blank" rel="noopener">http://download.csdn.net/detail/caisenchuan/9513196</a><br>但是原始程序有一点点问题以及dataframe升级后排序函数有些变化，因此里面的代码做如下改变：</p>
+<pre><code>
+</code></pre><p>这个脚本添加了两个参数，可以指定labels_file，然后可以直接把分类结果输出出来：</p>
+<pre><code>python python/classify.py --print_results --model_def examples/cifar10/cifar10_quick.prototxt --pretrained_model examples/cifar10/cifar10_quick_iter_5000.caffemodel.h5 --labels_file data/cifar10/cifar10_words.txt --center_only  examples/images/cat.jpg foo
 </code></pre><h2 id="分类自己的数据集"><a href="#分类自己的数据集" class="headerlink" title="分类自己的数据集"></a>分类自己的数据集</h2><p>caffe团队用imagenet图片进行训练，迭代30多万次，训练出来一个model。这个model将图片分为1000类，应该是目前为止最好的图片分类model了。一般来说，深度学习都需要上万张数据样本，如果我们想对自己的图片进行分类，但是样本量不多就几百张，训练出来的模型精度会很低，因此就可以利用别人训练好的模型参数当成我们的初始化参数。</p>
 <p>使用别人训练好的参数，必须有一个前提，那就是必须和别人用同一个network，因为参数是根据network而来的。当然，最后一层，我们是可以修改的，因为我们的数据可能并没有1000类，而只有几类。我们把最后一层的输出类别改一下，然后把层的名称改一下就可以了。最后用别人的参数、修改后的network和我们自己的数据，再进行训练，使得参数适应我们的数据，这样一个过程，通常称之为微调（fine tuning).</p>
 
