@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="利用已有的模型框架，下载淘宝数据集，学习模型参数并实现分类功能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T06:38:37.385Z">
+<meta property="og:updated_time" content="2018-03-08T06:46:03.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于深度学习caffe的图像分类-caffe使用">
 <meta name="twitter:description" content="利用已有的模型框架，下载淘宝数据集，学习模型参数并实现分类功能。">
@@ -357,7 +357,7 @@
 </blockquote>
 <a id="more"></a>
 <h2 id="分类自己的数据集"><a href="#分类自己的数据集" class="headerlink" title="分类自己的数据集"></a>分类自己的数据集</h2><p>准备数据，利用网上的一组淘宝数据，10个商品类1000张图片，每个类100张，当然你也可以根据自己的需要搜集自己想要识别的图片集，下载地址，百度网盘：<a href="https://pan.baidu.com/s/1o77w1wI" target="_blank" rel="noopener">https://pan.baidu.com/s/1o77w1wI</a><br>在caffe/examples文件夹下新建文件夹myfile4，并在myfile4中新建文件夹data用于存放我们的数据集，将下载的数据集中train和val文件复制到data中即</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">caffe/examples/myfile4/data/train</span><br><span class="line">caffe/examples/myfile4/data/val</span><br><span class="line">``` </span><br><span class="line">转换为lmdb格式</span><br><span class="line">在myfile4文件夹中新建create_filelist.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">caffe/examples/myfile4/data/train</span><br><span class="line">caffe/examples/myfile4/data/val</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">转换为lmdb格式</span><br><span class="line">在myfile4文件夹中新建create_filelist.sh</span><br></pre></td></tr></table></figure>
 <p>#!/usr/bin/env sh<br>DATA=examples/myfile4/data<br>MY=examples/myfile4/data</p>
 <p>echo “Create train.txt…”<br>rm -rf $MY/train.txt</p>
 <p>find $DATA/train -name 15001<em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 0/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 15059</em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 1/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 62047<em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 2/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 68021</em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 3/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 73018<em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 4/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 73063</em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 5/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 80012<em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 6/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 92002</em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 7/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 92017<em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 8/“&gt;&gt;$MY/train.txt<br>find $DATA/train -name 95005</em>.jpg | cut -d ‘/‘ -f4-5 | sed “s/$/ 9/“&gt;&gt;$MY/train.txt</p>
