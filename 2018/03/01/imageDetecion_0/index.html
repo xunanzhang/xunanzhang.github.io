@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习,图像分类,caffe,CNN," />
+  <meta name="keywords" content="深度学习,目标检测," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
-<meta name="keywords" content="深度学习,图像分类,caffe,CNN">
+<meta name="description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
+<meta name="keywords" content="深度学习,目标检测">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于深度学习caffe的图像分类-模型finetune">
-<meta property="og:url" content="http://yoursite.com/2018/02/27/imageClasscification_3/index.html">
+<meta property="og:title" content="基于深度学习的目标检测方法及应用">
+<meta property="og:url" content="http://yoursite.com/2018/03/01/imageDetecion_0/index.html">
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
-<meta property="og:description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
+<meta property="og:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T07:34:32.472Z">
+<meta property="og:updated_time" content="2018-03-08T09:07:54.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于深度学习caffe的图像分类-模型finetune">
-<meta name="twitter:description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
+<meta name="twitter:title" content="基于深度学习的目标检测方法及应用">
+<meta name="twitter:description" content="主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/27/imageClasscification_3/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/01/imageDetecion_0/"/>
 
 
 
 
 
-  <title>基于深度学习caffe的图像分类-模型finetune | JuneUncle's Blog</title>
+  <title>基于深度学习的目标检测方法及应用 | JuneUncle's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/imageClasscification_3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/01/imageDetecion_0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zxn | too young, too simple, sometimes naive">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">基于深度学习caffe的图像分类-模型finetune</h1>
+          <h1 class="post-title" itemprop="name headline">基于深度学习的目标检测方法及应用</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T00:00:00+08:00">
-                2018-02-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T00:00:00+08:00">
+                2018-03-01
               </time>
             
 
@@ -353,12 +353,31 @@
 
       
         <script src="/assets/js/APlayer.min.js"> </script><blockquote>
-<p>利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能</p>
+<p>主要了解深度学习算法在图像目标检测中的应用，常见算法及和传统方法的对比。利用实际数据进行实验，补充图像知识点，进而可以有个系统的学习。</p>
 </blockquote>
 <a id="more"></a>
-<p>caffe团队用imagenet图片进行训练，迭代30多万次，训练出来一个model。这个model将图片分为1000类，应该是目前为止最好的图片分类model了。一般来说，深度学习都需要上万张数据样本，如果我们想对自己的图片进行分类，但是样本量不多就几百张，训练出来的模型精度会很低，因此就可以利用别人训练好的模型参数当成我们的初始化参数。</p>
-<p>使用别人训练好的参数，必须有一个前提，那就是必须和别人用同一个network，因为参数是根据network而来的。当然，最后一层，我们是可以修改的，因为我们的数据可能并没有1000类，而只有几类。我们把最后一层的输出类别改一下，然后把层的名称改一下就可以了。最后用别人的参数、修改后的network和我们自己的数据，再进行训练，使得参数适应我们的数据，这样一个过程，通常称之为微调（fine tuning).</p>
-<h2 id="数据集准备"><a href="#数据集准备" class="headerlink" title="数据集准备"></a>数据集准备</h2><p>准备数据，利用网上的一组淘宝数据，10个商品类1000张图片，每个类100张，当然你也可以根据自己的需要搜集自己想要识别的图片集，下载地址，百度网盘：<a href="https://pan.baidu.com/s/1o77w1wI" target="_blank" rel="noopener">https://pan.baidu.com/s/1o77w1wI</a><br>在caffe/examples文件夹下新建文件夹myfile4，并在myfile4中新建文件夹data用于存放我们的数据集，将下载的数据集中train和val文件复制到data中，</p>
+<h2 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a>目标检测</h2><p>首先了解下分类、定位和检测的区别。图像分类的目标是要识别出图中所示是一只猫。而在ILSVRC（ImageNet Large Scale Visual Recognition Challenge)竞赛以及实际的应用中，还包括目标定位和目标检测等任务。其中目标定位是不仅仅要识别出来是什么物体（即分类），而且还要预测物体的位置，位置一般用边框（bounding box）标记，而目标检测实质是多目标的定位，即要在图片中定位多个目标物体，包括分类和定位。</p>
+<p>典型的技术路线是：目标分割 ——&gt;目标检测 ——&gt;目标识别 ——&gt;目标跟踪粗略的理解：目标分割：像素级的对前景与背景进行分类，将背景剔除；目标检测：定位目标，确定目标位置及大小；目标识别：定性目标，确定目标是什么；目标跟踪：追踪目标运动轨迹。举个栗子，如：需要对视频中的小明进行跟踪，处理过程将经历如下过程：（1）首先，采集第一帧视频图像，因为人脸部的肤色偏黄，因此可以通过颜色特征将人脸与背景分割出来（目标分割）；（2）分割出来后的图像有可能不仅仅包含人脸，可能还有部分环境中颜色也偏黄的物体，此时可以通过一定的形状特征将图像中所有的人脸准确找出来，确定其位置及范围（目标检测）；（3）接下来需将图像中的所有人脸与小明的人脸特征进行对比，找到匹配度最好的，从而确定哪个是小明（目标识别）；（4）之后的每一帧就不需要像第一帧那样在全图中对小明进行检测，而是可以根据小明的运动轨迹建立运动模型，通过模型对下一帧小明的位置进行预测，从而提升跟踪的效率（目标跟踪）</p>
+<p>目标检测对于人类来说并不困难，通过对图片中不同颜色模块的感知很容易定位并分类出其中目标物体，但对于计算机来说，面对的是RGB像素矩阵，很难从图像中直接得到狗和猫这样的抽象概念并定位其位置，再加上有时候多个物体和杂乱的背景混杂在一起，目标检测更加困难。但这难不倒科学家们，在传统视觉领域，目标检测就是一个非常热门的研究方向，一些特定目标的检测，比如人脸检测和行人检测已经有非常成熟的技术了。普通的目标检测也有过很多的尝试，但是效果总是差强人意。</p>
+<p>传统的目标检测一般使用滑动窗口的框架，主要包括三个步骤：<br>（1）利用不同尺寸的滑动窗口框住图中的某一部分作为候选区域；<br>（2）提取候选区域相关的视觉特征，比如人脸检测常用Harr特征，行人检测和普通目标检测常用HOG特征等；<br>（3）利用分类器进行识别，比如常用的SVM模型。</p>
+<p>传统的目标检测中，多尺度形变部件模型DPM（Deformable Part Model）是出类拔萃的，连续获得VOC（Visual Object Class）2007到2009的检测冠军，2010年其作者Felzenszwalb Pedro被VOC授予”终身成就奖”。DPM把物体看成了多个组成的部件（比如人脸的鼻子、嘴巴等），用部件间的关系来描述物体，这个特性非常符合自然界很多物体的非刚体特征。DPM可以看做是HOG+SVM的扩展，很好的继承了两者的优点，在人脸检测、行人检测等任务上取得了不错的效果，但是DPM相对复杂，检测速度也较慢，从而也出现了很多改进的方法。正当大家热火朝天改进DPM性能的时候，基于深度学习的目标检测横空出世，迅速盖过了DPM的风头，很多之前研究传统目标检测算法的研究者也开始转向深度学习。</p>
+<p>基于深度学习的目标检测发展起来后，其实效果也一直难以突破。OverFeat在ILSVRC 2013测试集上的mAP只能达到24.3%。2013年R-CNN诞生了，VOC 2007测试集的mAP被提升至48%，2014年时通过修改网络结构又飙升到了66%，同时ILSVRC 2013测试集的mAP也被提升至31.4%。</p>
+<p>R-CNN是Region-based Convolutional Neural Networks的缩写，中文翻译是基于区域的卷积神经网络，是一种结合区域提名（Region Proposal）和卷积神经网络（CNN）的目标检测方法。Ross Girshick在2013年的开山之作《Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation》奠定了这个子领域的基础，这篇论文后续版本发表在CVPR 2014，期刊版本发表在PAMI 2015。其实在R-CNN之前已经有很多研究者尝试用Deep Learning的方法来做目标检测了，包括OverFeat，但R-CNN是第一个真正可以工业级应用的解决方案.</p>
+<p>R-CNN这个领域目前研究非常活跃，先后出现了R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN、YOLO、SSD等研究。Ross Girshick作为这个领域的开山鼻祖总是神一样的存在，R-CNN、Fast R-CNN、Faster R-CNN、YOLO都和他有关。这些创新的工作其实很多时候是把一些传统视觉领域的方法和深度学习结合起来了，比如选择性搜索（Selective Search)和图像金字塔（Pyramid）等。</p>
+<p>深度学习相关的目标检测方法也可以大致分为两派：<br>（1）基于区域提名的，如R-CNN（结合region proposal和CNN分类）、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN；<br>（2）端到端（End-to-End），无需区域提名的，如YOLO、SSD，将目标检测转换为回归问题。<br>目前来说，基于区域提名的方法依然占据上风，但端到端的方法速度上优势明显，后续的发展拭目以待。</p>
+<h2 id="选择性搜索"><a href="#选择性搜索" class="headerlink" title="选择性搜索"></a>选择性搜索</h2><p>补充个概念，关于精确率(precision)和准确率(accuracy)。实际上非常简单，精确率是针对我们预测结果而言的，它表示的是预测为正的样本中有多少是真正的正样本。那么预测为正就有两种可能了，一种就是把正类预测为正类(TP)，另一种就是把负类预测为正类(FP)，也就是 P = TP/(TP+FP)；</p>
+<p>而召回率是针对我们原来的样本而言的，它表示的是样本中的正例有多少被预测正确了。那也有两种可能，一种是把原来的正类预测成正类(TP)，另一种就是把原来的正类预测为负类(FN)，则有 R = TP/(TP+FN)</p>
+<p>其实就是分母不同，一个分母是预测为正的样本数，另一个是原来样本中所有的正样本数。</p>
+<p>目标检测的第一步是要做区域提名（Region Proposal），也就是找出可能的感兴趣区域（Region Of Interest, ROI）。区域提名类似于光学字符识别（OCR）领域的切分，OCR切分常用过切分方法，简单说就是尽量切碎到小的连通域（比如小的笔画之类），然后再根据相邻块的一些形态学特征进行合并。但目标检测的对象相比OCR领域千差万别，而且图形不规则，大小不一，所以一定程度上可以说区域提名是比OCR切分更难的一个问题。</p>
+<p>区域提名可能的方法有：</p>
+<p>一、滑动窗口。滑动窗口本质上就是穷举法，利用不同的尺度和长宽比把所有可能的大大小小的块都穷举出来，然后送去识别，识别出来概率大的就留下来。很明显，这样的方法复杂度太高，产生了很多的冗余候选区域，在现实当中不可行。</p>
+<p>二、规则块。在穷举法的基础上进行了一些剪枝，只选用固定的大小和长宽比。这在一些特定的应用场景是很有效的，比如拍照搜题APP小猿搜题中的汉字检测，因为汉字方方正正，长宽比大多比较一致，因此用规则块做区域提名是一种比较合适的选择。但是对于普通的目标检测来说，规则块依然需要访问很多的位置，复杂度高。</p>
+<p>三、选择性搜索。从机器学习的角度来说，前面的方法召回是不错了，但是精度差强人意，所以问题的核心在于如何有效地去除冗余候选区域。其实冗余候选区域大多是发生了重叠，选择性搜索利用这一点，自底向上合并相邻的重叠区域，从而减少冗余。</p>
+<p>区域提名并不只有以上所说的三种方法，实际上这块是非常灵活的，因此变种也很多,总体上，选择性搜索是一种比较朴素的区域提名方法，被早期的基于深度学习的目标检测方法（包括Overfeat和R-CNN等）广泛利用，但被当前的新方法弃用了.</p>
+<h2 id="区域搜索"><a href="#区域搜索" class="headerlink" title="区域搜索"></a>区域搜索</h2><p>对于滑动窗口存在的问题，region proposal（候选区域）提供了很好的解决方案。region proposal利用了图像中的纹理、边缘、颜色等信息预先找出图中目标可能出现的位置，可以保证在选取较少窗口（几千个甚至几百个）的情况下保持较高的召回率。这大大降低了后续操作的时间复杂度，并且获取的候选窗口要比滑动窗口的质量更高。</p>
+<h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><p>RCNN算法的核心思想就是对每个区域通过CNN提取特征，然后接上一个分类器预测这个区域包含一个感兴趣对象的置信度，也就是说，转换成了一个图像分类问题（类似imagenet），后面接的这个分类器可以是独立训练的svm也可以是简单的softmax分类.</p>
+<p>SPP-net</p>
+<p>Fast R-CNN</p>
 
       
     </div>
@@ -378,11 +397,7 @@
           
             <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
-            <a href="/tags/图像分类/" rel="tag"># 图像分类</a>
-          
-            <a href="/tags/caffe/" rel="tag"># caffe</a>
-          
-            <a href="/tags/CNN/" rel="tag"># CNN</a>
+            <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
         </div>
       
@@ -395,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/26/imageClasscification_2/" rel="next" title="基于深度学习caffe的图像分类-训练自己数据集">
-                <i class="fa fa-chevron-left"></i> 基于深度学习caffe的图像分类-训练自己数据集
+              <a href="/2018/02/27/imageClasscification_3/" rel="next" title="基于深度学习caffe的图像分类-模型finetune">
+                <i class="fa fa-chevron-left"></i> 基于深度学习caffe的图像分类-模型finetune
               </a>
             
           </div>
@@ -405,8 +420,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/01/imageDetecion_0/" rel="prev" title="基于深度学习的目标检测方法及应用">
-                基于深度学习的目标检测方法及应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/02/imageDetection_1/" rel="prev" title="深度学习图像检测-yolo算法及使用">
+                深度学习图像检测-yolo算法及使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -542,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集准备"><span class="nav-number">1.</span> <span class="nav-text">数据集准备</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标检测"><span class="nav-number">1.</span> <span class="nav-text">目标检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择性搜索"><span class="nav-number">2.</span> <span class="nav-text">选择性搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域搜索"><span class="nav-number">3.</span> <span class="nav-text">区域搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-CNN"><span class="nav-number">3.1.</span> <span class="nav-text">R-CNN</span></a></li></ol></li></ol></div>
             
 
           </div>
