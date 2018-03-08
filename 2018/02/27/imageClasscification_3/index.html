@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="深度学习,图像分类,caffe,CNN," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="JuneUncle&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/深度学习/index.html">
+<meta name="description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
+<meta name="keywords" content="深度学习,图像分类,caffe,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于深度学习caffe的图像分类-模型finetune">
+<meta property="og:url" content="http://yoursite.com/2018/02/27/imageClasscification_3/index.html">
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
+<meta property="og:description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-08T07:34:32.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JuneUncle&#39;s Blog">
+<meta name="twitter:title" content="基于深度学习caffe的图像分类-模型finetune">
+<meta name="twitter:description" content="利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/深度学习/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/27/imageClasscification_3/"/>
 
 
 
 
 
-  <title>标签: 深度学习 | JuneUncle's Blog</title>
+  <title>基于深度学习caffe的图像分类-模型finetune | JuneUncle's Blog</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,166 +249,185 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>深度学习<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/imageClasscification_3/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zxn | too young, too simple, sometimes naive">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JuneUncle's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/01/imageDetection_1/" itemprop="url">
-              
-                <span itemprop="name">深度学习图像检测-yolo算法及使用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">基于深度学习caffe的图像分类-模型finetune</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-01T00:00:00+08:00"
-              content="2018-03-01" >
-          03-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T00:00:00+08:00">
+                2018-02-27
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工作学习/" itemprop="url" rel="index">
+                    <span itemprop="name">工作学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/27/imageClasscification_3/" itemprop="url">
-              
-                <span itemprop="name">基于深度学习caffe的图像分类-模型finetune</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-27T00:00:00+08:00"
-              content="2018-02-27" >
-          02-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/27/imageDetecion_0/" itemprop="url">
-              
-                <span itemprop="name">基于深度学习的目标检测方法及应用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-27T00:00:00+08:00"
-              content="2018-02-27" >
-          02-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/26/imageClasscification_2/" itemprop="url">
-              
-                <span itemprop="name">基于深度学习caffe的图像分类-训练自己数据集</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-26T00:00:00+08:00"
-              content="2018-02-26" >
-          02-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/25/imageClasscification_1/" itemprop="url">
-              
-                <span itemprop="name">基于深度学习caffe的图像分类-安装及使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-25T00:00:00+08:00"
-              content="2018-02-25" >
-          02-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <script src="/assets/js/APlayer.min.js"> </script><blockquote>
+<p>利用已有模型作为初始参数，融入收集到的人脸图像，对模型进行finetune处理，实现人脸识别的功能</p>
+</blockquote>
+<a id="more"></a>
+<p>caffe团队用imagenet图片进行训练，迭代30多万次，训练出来一个model。这个model将图片分为1000类，应该是目前为止最好的图片分类model了。一般来说，深度学习都需要上万张数据样本，如果我们想对自己的图片进行分类，但是样本量不多就几百张，训练出来的模型精度会很低，因此就可以利用别人训练好的模型参数当成我们的初始化参数。</p>
+<p>使用别人训练好的参数，必须有一个前提，那就是必须和别人用同一个network，因为参数是根据network而来的。当然，最后一层，我们是可以修改的，因为我们的数据可能并没有1000类，而只有几类。我们把最后一层的输出类别改一下，然后把层的名称改一下就可以了。最后用别人的参数、修改后的network和我们自己的数据，再进行训练，使得参数适应我们的数据，这样一个过程，通常称之为微调（fine tuning).</p>
+<h2 id="数据集准备"><a href="#数据集准备" class="headerlink" title="数据集准备"></a>数据集准备</h2><p>准备数据，利用网上的一组淘宝数据，10个商品类1000张图片，每个类100张，当然你也可以根据自己的需要搜集自己想要识别的图片集，下载地址，百度网盘：<a href="https://pan.baidu.com/s/1o77w1wI" target="_blank" rel="noopener">https://pan.baidu.com/s/1o77w1wI</a><br>在caffe/examples文件夹下新建文件夹myfile4，并在myfile4中新建文件夹data用于存放我们的数据集，将下载的数据集中train和val文件复制到data中，</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/图像分类/" rel="tag"># 图像分类</a>
+          
+            <a href="/tags/caffe/" rel="tag"># caffe</a>
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/imageDetecion_0/" rel="next" title="基于深度学习的目标检测方法及应用">
+                <i class="fa fa-chevron-left"></i> 基于深度学习的目标检测方法及应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/01/imageDetection_1/" rel="prev" title="深度学习图像检测-yolo算法及使用">
+                深度学习图像检测-yolo算法及使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -411,6 +435,13 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
 
         </div>
         
@@ -431,8 +462,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,6 +532,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集准备"><span class="nav-number">1.</span> <span class="nav-text">数据集准备</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -624,6 +680,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -664,6 +724,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7a92ca14abb39f6b400b',
+          clientSecret: 'd6e96818ff93c043ce259d60ea64601199fd47fa',
+          repo: 'xunanzhang.github.io',
+          owner: 'xunanzhang',
+          admin: ['xunanzhang'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
 
