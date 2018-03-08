@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JuneUncle&#39;s Blog">
 <meta property="og:description" content="深度学习在计算机视觉领域四大基本任务中的应用，包括分类、定位检测、语义分割、和实例分割。首先从图像分类开始学习，利用Caffe搭建深度学习网络，在实际数据集上进行测试。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T07:02:18.549Z">
+<meta property="og:updated_time" content="2018-03-08T07:13:51.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于深度学习caffe的图像分类-caffe安装">
 <meta name="twitter:description" content="深度学习在计算机视觉领域四大基本任务中的应用，包括分类、定位检测、语义分割、和实例分割。首先从图像分类开始学习，利用Caffe搭建深度学习网络，在实际数据集上进行测试。">
@@ -387,7 +387,7 @@
 <h2 id="使用自带模型"><a href="#使用自带模型" class="headerlink" title="使用自带模型"></a>使用自带模型</h2><p>训练cifar训练集，进入到caffe根目录获取训练数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./data/cifar10/get_cifar10.sh</span><br><span class="line">./examples/cifar10/create_cifar10.sh</span><br></pre></td></tr></table></figure>
 <p>开始训练<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./examples/cifar10/train_quick.sh</span><br></pre></td></tr></table></figure></p>
-<p>在运行之前需要在./examples/cifar10/目录中修改cifar10_quick_solver_lr1.prototxt和cifar10_quick_solver.prototxt这两个文件中solver_mode为CPU（根据实际的配置情况，训练完成后我们会得到：</p>
+<p>在运行之前需要在./examples/cifar10/目录中修改cifar10_quick_solver_lr1.prototxt和cifar10_quick_solver.prototxt这两个文件中solver_mode为CPU（根据实际配置），训练后会得到：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cifar10_quick_iter_5000.caffemodel.h5</span><br><span class="line">cifar10_quick_iter_5000.solverstate.h5</span><br></pre></td></tr></table></figure>
 <p>此时，我们就训练得到了模型，用于后面的分类。下面我们使用模型来分类数据（注意examples前面两个空格）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python python/classify.py --model_def examples/cifar10/cifar10_quick.prototxt --pretrained_model examples/cifar10/cifar10_quick_iter_5000.caffemodel.h5 --center_only  examples/images/cat.jpg foo</span><br></pre></td></tr></table></figure>
